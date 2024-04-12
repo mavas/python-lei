@@ -31,7 +31,8 @@ class Download:
             _is_actions (bool): For setting path of downloaded resources on Github Actions
         """
         self.data_url = f"https://isinmapping.gleif.org/file-by-date/{TODAY}"
-
+        self.data_url2 = f"https://www.gleif.org/en/lei-data/lei-mapping/download-isin-to-lei-relationship-files"
+        self.data_url3 = "https://mapping.gleif.org/api/v2/isin-lei/ab32456c-3b74-48eb-826f-5a2695df7475/download"
         self._download(_is_actions)
 
     def _download(self, _is_actions):
@@ -39,11 +40,11 @@ class Download:
         Initiate download into resource folder
         """
         if not os.path.exists(RESOURCE_DIR):
-            logger.info(f"No resources directory found, creating resources directory.")
+            logger.info(f"No resources directory found, creating resources directory: %s" % RESOURCE_DIR)
             os.mkdir(RESOURCE_DIR)
 
         try:
-            response = requests.get(self.data_url)
+            response = requests.get(self.data_url3)
         except requests.exceptions as err:
             logger.error(
                 "Connection Error, Unable to download data at this time. Please check you have working internet connection or try again later."
